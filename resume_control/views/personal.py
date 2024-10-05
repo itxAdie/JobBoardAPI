@@ -37,11 +37,14 @@ class UpdatePersonalDetailsAPIView(CustomUpdateAPIView):
             }, status=status.HTTP_403_FORBIDDEN)
 
         serializer = self.get_serializer(instance, data=request.data, partial=True)
-        serializer.is_valid(raise_exception=True)
-        serializer.save(
-            updated_by=request.user
-        )
-        return response.Response(serializer.data)
+        if serializer.is_valid():
+            serializer.save(
+                updated_by=request.user
+            )
+            return response.Response(data=serializer.data, status=status.HTTP_200_OK)
+        else:
+            print(serializer.errors)
+            return response.Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class UpdatePersonalImageAPIView(CustomUpdateAPIView):

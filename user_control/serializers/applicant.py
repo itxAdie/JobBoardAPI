@@ -45,6 +45,7 @@ class ApplicantModelSerializer:
 
     class UpdateProfilePicture(ApplicantModelSerializerMeta):
         profile_picture = ImageField(required=True)
+
         class Meta(ApplicantModelSerializerMeta.Meta):
             fields = [
                 'profile_picture',

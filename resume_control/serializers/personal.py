@@ -1,4 +1,6 @@
-from rest_framework.serializers import ModelSerializer, ImageField
+from datetime import datetime
+
+from rest_framework.serializers import ModelSerializer, CharField, DateField, ImageField, ValidationError
 
 from resume_control.models import PersonalModel
 
@@ -33,6 +35,12 @@ class PersonalModelSerializer:
             ]
 
     class Write(PersonalModelSerializerMeta):
+        about_me = CharField(allow_blank=True)
+        nationality = CharField(allow_blank=True)
+        city = CharField(allow_blank=True)
+        state = CharField(allow_blank=True)
+        country = CharField(allow_blank=True)
+
         class Meta(PersonalModelSerializerMeta.Meta):
             fields = PersonalModelSerializerMeta.Meta.fields
 
